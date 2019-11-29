@@ -50,6 +50,8 @@ public class NettyServer {
                         ch.pipeline().addLast(new ListGroupMembersRequestHandler());
                         // 登出请求处理器
                         ch.pipeline().addLast(new LogoutRequestHandler());
+                        //群消息请求处理器
+                        ch.pipeline().addLast(new GroupMessageRequestHandler());
                         ch.pipeline().addLast(new NettyRequestEncoder());
                     }
                 });

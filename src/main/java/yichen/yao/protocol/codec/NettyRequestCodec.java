@@ -41,6 +41,8 @@ public class NettyRequestCodec {
         requestTypeMap.put(QUIT_GROUP_RESPONSE, NettyQuitGroupResponse.class);
         requestTypeMap.put(LIST_GROUP_MEMBERS_REQUEST, NettyListGroupMembersRequest.class);
         requestTypeMap.put(LIST_GROUP_MEMBERS_RESPONSE, NettyListGroupMembersResponse.class);
+        requestTypeMap.put(GROUP_MESSAGE_REQUEST, NettyGroupMessageRequest.class);
+        requestTypeMap.put(GROUP_MESSAGE_RESPONSE, NettyGroupMessageResponse.class);
 
         serializerMap = new HashMap<>();
         Serializer fast = new FastJsonSerializer();

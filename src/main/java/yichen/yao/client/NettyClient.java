@@ -56,6 +56,8 @@ public class NettyClient {
                         pipeline.addLast(new QuitGroupResponseHandler());
                         // 获取群成员响应处理器
                         pipeline.addLast(new ListGroupMembersResponseHandler());
+                        // 群消息响应
+                        pipeline.addLast(new GroupMessageResponseHandler());
                         // 登出响应处理器
                         pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new NettyRequestEncoder());
