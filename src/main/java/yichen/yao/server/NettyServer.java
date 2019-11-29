@@ -15,7 +15,7 @@ import java.util.Date;
  * @date 2019/11/28 下午9:06
  */
 public class NettyServer {
-    private static final int PORT = 8000;
+    private static final int PORT = 8080;
 
     public static void main(String[] args) {
         NioEventLoopGroup boosGroup = new NioEventLoopGroup();

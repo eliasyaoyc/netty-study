@@ -1,11 +1,15 @@
 package yichen.yao.client;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import yichen.yao.client.handler.ClientHandler;
+import yichen.yao.protocol.codec.NettyRequestCodec;
+import yichen.yao.protocol.request.NettyMessageRequest;
+import yichen.yao.util.LoginUtil;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -16,11 +20,14 @@ import java.util.concurrent.TimeUnit;
  * @date 2019/11/28 下午9:06
  */
 public class NettyClient {
+
     private static final int MAX_RETRY = 5;
     private static final String HOST = "127.0.0.1";
     private static final int PORT = 8080;
-
+    private static ClientHandler clientHandler;
     public static void main(String[] args) {
+        clientHandler = new ClientHandler();
+        login();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(workerGroup)
@@ -31,7 +38,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
-                        pipeline.addLast(new ClientHandler());
+                        pipeline.addLast(clientHandler);
                     }
                 });
         connect(bootstrap, HOST, PORT, MAX_RETRY);
@@ -64,15 +71,27 @@ public class NettyClient {
             public void run() {
                 while (!Thread.interrupted()){
                     //如果登录成功就打开控制台
-                    if(true){
+                    if(LoginUtil.hasLogin(channel)){
                         System.out.println("登录成功---输入消息到服务端");
                         Scanner scanner = new Scanner(System.in);
                         String value = scanner.nextLine();
-                        channel.writeAndFlush(value);
+                        NettyMessageRequest messageRequest = new NettyMessageRequest();
+                        messageRequest.setMessage(value);
+                        ByteBuf byteBuf = NettyRequestCodec.INSTANCE.encode(channel.alloc().ioBuffer(), messageRequest);
+                        channel.writeAndFlush(byteBuf);
                     }
                 }
             }
         });
         thread.start();
+    }
+    private static void login(){
+        System.out.println("请输入账号！ 以回车结束");
+        Scanner accountScanner = new Scanner(System.in);
+        String account = accountScanner.nextLine();
+        System.out.println("请输入密码！ 以回车结束");
+        Scanner passwordScanner = new Scanner(System.in);
+        String password = passwordScanner.nextLine();
+        clientHandler.setUsernamePassword(account,password);
     }
 }
