@@ -1,6 +1,7 @@
 package yichen.yao.protocol.request;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import yichen.yao.protocol.NettyRequest;
 import yichen.yao.protocol.type.Type;
 
@@ -9,6 +10,7 @@ import yichen.yao.protocol.type.Type;
  * @time: 2019/11/29 上午9:16
  */
 @Data
+@NoArgsConstructor
 public class NettyMessageRequest extends NettyRequest {
 
     private String toUserId;

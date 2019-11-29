@@ -93,8 +93,8 @@ public class NettyClient {
                             e.printStackTrace();
                         }
                     }else {
-                        String toUserId = scanner.nextLine();
-                        String message = scanner.nextLine();
+                        String toUserId = scanner.next();
+                        String message = scanner.next();
                         channel.writeAndFlush(new NettyMessageRequest(toUserId,message));
                     }
                 }
