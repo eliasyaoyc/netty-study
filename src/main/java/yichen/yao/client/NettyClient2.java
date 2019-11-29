@@ -7,10 +7,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import yichen.yao.client.console.ConsoleCommandManager;
 import yichen.yao.client.console.LoginConsoleCommand;
-import yichen.yao.client.handler.CreateGroupResponseHandler;
-import yichen.yao.client.handler.LoginResponseHandler;
-import yichen.yao.client.handler.LogoutResponseHandler;
-import yichen.yao.client.handler.MessageResponseHandler;
+import yichen.yao.client.handler.*;
 import yichen.yao.protocol.codec.NettyRequestDecoder;
 import yichen.yao.protocol.codec.NettyRequestEncoder;
 import yichen.yao.protocol.codec.Spliter;
@@ -42,10 +39,20 @@ public class NettyClient2 {
                         ChannelPipeline pipeline = socketChannel.pipeline();
                         pipeline.addLast(new Spliter());
                         pipeline.addLast(new NettyRequestDecoder());
+                        // 登录响应处理器
                         pipeline.addLast(new LoginResponseHandler());
-                        pipeline.addLast(new LogoutResponseHandler());
+                        // 收消息处理器
                         pipeline.addLast(new MessageResponseHandler());
+                        // 创建群响应处理器
                         pipeline.addLast(new CreateGroupResponseHandler());
+                        // 加群响应处理器
+                        pipeline.addLast(new JoinGroupResponseHandler());
+                        // 退群响应处理器
+                        pipeline.addLast(new QuitGroupResponseHandler());
+                        // 获取群成员响应处理器
+                        pipeline.addLast(new ListGroupMembersResponseHandler());
+                        // 登出响应处理器
+                        pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new NettyRequestEncoder());
                     }
                 });

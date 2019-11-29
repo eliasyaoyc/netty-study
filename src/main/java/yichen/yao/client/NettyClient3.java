@@ -1,7 +1,6 @@
 package yichen.yao.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -9,13 +8,9 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import yichen.yao.client.console.ConsoleCommandManager;
 import yichen.yao.client.console.LoginConsoleCommand;
 import yichen.yao.client.handler.*;
-import yichen.yao.protocol.codec.NettyRequestCodec;
 import yichen.yao.protocol.codec.NettyRequestDecoder;
 import yichen.yao.protocol.codec.NettyRequestEncoder;
 import yichen.yao.protocol.codec.Spliter;
-import yichen.yao.protocol.request.NettyLoginRequest;
-import yichen.yao.protocol.request.NettyMessageRequest;
-import yichen.yao.util.LoginUtil;
 import yichen.yao.util.SessionUtil;
 
 import java.util.Date;
@@ -26,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @author yao
  * @date 2019/11/28 下午9:06
  */
-public class NettyClient {
+public class NettyClient3 {
 
     private static final int MAX_RETRY = 5;
     private static final String HOST = "127.0.0.1";

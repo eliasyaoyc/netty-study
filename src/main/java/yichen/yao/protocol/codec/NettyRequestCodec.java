@@ -2,14 +2,8 @@ package yichen.yao.protocol.codec;
 
 import io.netty.buffer.ByteBuf;
 import yichen.yao.protocol.NettyRequest;
-import yichen.yao.protocol.request.NettyCreateGroupRequest;
-import yichen.yao.protocol.request.NettyLoginRequest;
-import yichen.yao.protocol.request.NettyLogoutRequest;
-import yichen.yao.protocol.request.NettyMessageRequest;
-import yichen.yao.protocol.response.NettyCreateGroupResponse;
-import yichen.yao.protocol.response.NettyLoginResponse;
-import yichen.yao.protocol.response.NettyLogoutResponse;
-import yichen.yao.protocol.response.NettyMessageResponse;
+import yichen.yao.protocol.request.*;
+import yichen.yao.protocol.response.*;
 import yichen.yao.serialize.Serializer;
 import yichen.yao.serialize.impl.FastJsonSerializer;
 import yichen.yao.serialize.impl.ProtoBufSerializer;
@@ -41,6 +35,12 @@ public class NettyRequestCodec {
         requestTypeMap.put(LOGOUT_RESPONSE, NettyLogoutResponse.class);
         requestTypeMap.put(CREATE_GROUP_REQUEST, NettyCreateGroupRequest.class);
         requestTypeMap.put(CREATE_GROUP_RESPONSE, NettyCreateGroupResponse.class);
+        requestTypeMap.put(JOIN_GROUP_REQUEST, NettyJoinGroupRequest.class);
+        requestTypeMap.put(JOIN_GROUP_RESPONSE, NettyJoinGroupResponse.class);
+        requestTypeMap.put(QUIT_GROUP_REQUEST, NettyQuitGroupRequest.class);
+        requestTypeMap.put(QUIT_GROUP_RESPONSE, NettyQuitGroupResponse.class);
+        requestTypeMap.put(LIST_GROUP_MEMBERS_REQUEST, NettyListGroupMembersRequest.class);
+        requestTypeMap.put(LIST_GROUP_MEMBERS_RESPONSE, NettyListGroupMembersResponse.class);
 
         serializerMap = new HashMap<>();
         Serializer fast = new FastJsonSerializer();

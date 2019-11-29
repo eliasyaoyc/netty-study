@@ -29,15 +29,16 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Netty
         // 2. 筛选出待加入群聊的用户的 channel 和 userName
         for (String userId : userIdList) {
             Channel channel = SessionUtil.getChannel(userId);
-            if(channel != null){
+            if (channel != null) {
                 channelGroup.add(channel);
                 userNameList.add(SessionUtil.getSession(channel).getUserName());
             }
         }
         // 3. 创建群聊创建结果的响应
+        String groupId = UUID.randomUUID().toString().split("-")[0];
         NettyCreateGroupResponse createGroupResponse = new NettyCreateGroupResponse();
         createGroupResponse.setSuccess(true);
-        createGroupResponse.setGroupId(UUID.randomUUID().toString().split("-")[0]);
+        createGroupResponse.setGroupId(groupId);
         createGroupResponse.setUserNameList(userNameList);
 
         // 4. 给每个客户端发送拉群通知
@@ -46,5 +47,7 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Netty
         System.out.print("群创建成功，id 为[" + createGroupResponse.getGroupId() + "], ");
         System.out.println("群里面有：" + createGroupResponse.getUserNameList());
 
+        // 5. 保存群组相关的信息
+        SessionUtil.bindChannelGroup(groupId, channelGroup);
     }
 }
