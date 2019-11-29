@@ -9,9 +9,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import yichen.yao.protocol.codec.NettyRequestDecoder;
 import yichen.yao.protocol.codec.NettyRequestEncoder;
 import yichen.yao.protocol.codec.Spliter;
-import yichen.yao.server.handler.AuthHandler;
-import yichen.yao.server.handler.LoginRequestHandler;
-import yichen.yao.server.handler.MessageRequestHandler;
+import yichen.yao.server.handler.*;
 
 import java.util.Date;
 
@@ -40,6 +38,8 @@ public class NettyServer {
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new CreateGroupRequestHandler());
+                        ch.pipeline().addLast(new LogoutRequestHandler());
                         ch.pipeline().addLast(new NettyRequestEncoder());
                     }
                 });

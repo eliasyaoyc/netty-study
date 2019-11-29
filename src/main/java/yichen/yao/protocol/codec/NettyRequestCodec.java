@@ -2,9 +2,13 @@ package yichen.yao.protocol.codec;
 
 import io.netty.buffer.ByteBuf;
 import yichen.yao.protocol.NettyRequest;
+import yichen.yao.protocol.request.NettyCreateGroupRequest;
 import yichen.yao.protocol.request.NettyLoginRequest;
+import yichen.yao.protocol.request.NettyLogoutRequest;
 import yichen.yao.protocol.request.NettyMessageRequest;
+import yichen.yao.protocol.response.NettyCreateGroupResponse;
 import yichen.yao.protocol.response.NettyLoginResponse;
+import yichen.yao.protocol.response.NettyLogoutResponse;
 import yichen.yao.protocol.response.NettyMessageResponse;
 import yichen.yao.serialize.Serializer;
 import yichen.yao.serialize.impl.FastJsonSerializer;
@@ -33,6 +37,10 @@ public class NettyRequestCodec {
         requestTypeMap.put(LOGIN_RESPONSE, NettyLoginResponse.class);
         requestTypeMap.put(MESSAGE_REQUEST, NettyMessageRequest.class);
         requestTypeMap.put(MESSAGE_RESPONSE, NettyMessageResponse.class);
+        requestTypeMap.put(LOGOUT_REQUEST, NettyLogoutRequest.class);
+        requestTypeMap.put(LOGOUT_RESPONSE, NettyLogoutResponse.class);
+        requestTypeMap.put(CREATE_GROUP_REQUEST, NettyCreateGroupRequest.class);
+        requestTypeMap.put(CREATE_GROUP_RESPONSE, NettyCreateGroupResponse.class);
 
         serializerMap = new HashMap<>();
         Serializer fast = new FastJsonSerializer();
