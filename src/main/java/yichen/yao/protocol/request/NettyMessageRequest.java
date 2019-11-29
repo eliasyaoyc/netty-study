@@ -11,7 +11,13 @@ import yichen.yao.protocol.type.Type;
 @Data
 public class NettyMessageRequest extends NettyRequest {
 
+    private String toUserId;
     private String message;
+
+    public NettyMessageRequest(String toUserId, String message) {
+        this.toUserId = toUserId;
+        this.message = message;
+    }
 
     @Override
     public Byte getType() {

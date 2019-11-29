@@ -1,6 +1,7 @@
 package yichen.yao.attribute;
 
 import io.netty.util.AttributeKey;
+import yichen.yao.session.Session;
 
 /**
  * @author yao
@@ -9,4 +10,6 @@ import io.netty.util.AttributeKey;
 public interface Attributes {
 
     AttributeKey<Boolean> LOGIN = AttributeKey.newInstance("login");
+
+    AttributeKey<Session> SESSION = AttributeKey.newInstance("session");
 }

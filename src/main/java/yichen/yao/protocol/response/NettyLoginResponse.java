@@ -10,6 +10,11 @@ import yichen.yao.protocol.type.Type;
  */
 @Data
 public class NettyLoginResponse extends NettyRequest {
+
+    private String userId;
+
+    private String userName;
+
     private boolean success;
 
     private String reason;

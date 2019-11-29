@@ -11,6 +11,10 @@ import yichen.yao.protocol.type.Type;
 @Data
 public class NettyMessageResponse extends NettyRequest {
 
+    private String fromUserId;
+
+    private String fromUserName;
+
     private String message;
 
     @Override
