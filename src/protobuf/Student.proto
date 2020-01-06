@@ -1,0 +1,35 @@
+syntax = "proto2";
+
+package yichen.yao.protobuf;
+
+option optimize_for = SPEED;
+option java_package = "yichen.yao.netty.sixthExample";
+option java_outer_classname = "MyDataInfo";
+
+message MyMessage{
+  enum DataType{
+    StudentType = 1;
+    DogType = 2;
+    CatType = 3;
+  }
+  required DataType data_type = 1;
+  oneof dataBody{
+    Student student = 2;
+    Dog dog = 3;
+    Cat cat = 4;
+  }
+}
+
+message Student {
+  required string name = 1;
+  required int32 id = 2;
+  optional string email = 3;
+}
+message Dog{
+  optional string name = 1;
+  optional int32 age = 2;
+}
+message Cat{
+  optional string name = 1;
+  optional string city = 2;
+}
